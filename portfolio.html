@@ -1,0 +1,304 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name | Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f111a;
+  --text: #f0f0f0;
+  --card: rgba(255, 255, 255, 0.05);
+  --primary: #4f46e5;
+  --hover: #3b34c4;
+}
+
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  transition: 0.3s;
+}
+a { text-decoration: none; }
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  transition: 0.5s;
+}
+.glass:hover { transform: translateY(-5px) scale(1.02); }
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  position: sticky;
+  top: 0;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+nav h1 { color: var(--primary); }
+nav ul { display: flex; list-style: none; gap: 20px; }
+nav ul li a { color: var(--text); font-weight: 500; transition: 0.3s; }
+nav ul li a:hover { color: var(--primary); }
+.toggle-btn {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.toggle-btn:hover { background: var(--hover); }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+.hero img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  margin-bottom: 20px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.hero img:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 20px var(--primary); }
+.hero h1 { font-size: 3rem; }
+.hero h1 span { color: var(--primary); }
+.hero p { margin-top: 10px; color: #ccc; }
+.hero .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  color: white;
+  background: var(--primary);
+  border-radius: 25px;
+  transition: 0.3s;
+}
+.hero .btn:hover { background: var(--hover); transform: scale(1.05); }
+
+/* Sections */
+section { padding: 80px 5%; }
+section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 40px;
+}
+
+/* Containers */
+.skills-container,
+.projects-container,
+.experience-container {
+  display: grid;
+  gap: 20px;
+}
+.skills-container { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.projects-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.experience-container { grid-template-columns: 1fr; }
+
+/* Cards */
+.skill-card,
+.project-card,
+.experience-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+}
+.skill-card:hover,
+.project-card:hover,
+.experience-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Contact */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.contact-container a { color: var(--primary); font-weight: 500; transition: 0.3s; }
+.contact-container a:hover { color: var(--hover); }
+
+/* Footer */
+footer { text-align: center; padding: 20px; color: #aaa; border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* Responsive */
+@media(max-width:768px){
+  nav ul { display: none; }
+  .hero h1 { font-size: 2rem; }
+  .hero img { width: 120px; height: 120px; }
+}
+
+/* Scroll Animations */
+.animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.7s ease-out;
+}
+.animate.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h1 contenteditable="true">YourName</h1>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="toggle-btn" onclick="toggleDark()">🌙</button>
+</nav>
+
+<section class="hero animate">
+  <img src="profile.jpg" alt="Your Name" id="profile-photo" onclick="changePhoto()">
+  <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="updatePhoto(event)">
+  <h1>Hi, I'm <span contenteditable="true">Your Name</span></h1>
+  <p contenteditable="true">Full Stack Developer | Building Futuristic Web Apps</p>
+  <a href="resume.pdf" id="resume-link" download class="btn">Download Resume</a>
+  <button class="btn" onclick="changeResume()">Upload New Resume</button>
+  <input type="file" id="resume-input" accept=".pdf" style="display:none" onchange="updateResume(event)">
+</section>
+
+<section id="about" class="glass animate" contenteditable="true">
+  <h2>About Me</h2>
+  <p>
+    Passionate Full Stack Developer with expertise in frontend and backend technologies.
+    Skilled in HTML, CSS, JavaScript, React, Node.js, and building responsive, interactive, futuristic websites.
+  </p>
+</section>
+
+<section id="skills">
+  <h2 class="animate">Technical Skills</h2>
+  <div class="skills-container">
+    <div class="skill-card animate" contenteditable="true">HTML</div>
+    <div class="skill-card animate" contenteditable="true">CSS</div>
+    <div class="skill-card animate" contenteditable="true">JavaScript</div>
+    <div class="skill-card animate" contenteditable="true">React</div>
+    <div class="skill-card animate" contenteditable="true">Node.js</div>
+    <div class="skill-card animate" contenteditable="true">Python</div>
+    <div class="skill-card animate" contenteditable="true">SQL</div>
+    <div class="skill-card animate" contenteditable="true">APIs</div>
+  </div>
+</section>
+
+<section id="experience">
+  <h2 class="animate">Experience</h2>
+  <div class="experience-container">
+    <div class="experience-card animate" contenteditable="true">
+      <h3>Software Engineer | ABC Company</h3>
+      <p>2023 - Present | Developing web applications using React and Node.js.</p>
+    </div>
+    <div class="experience-card animate" contenteditable="true">
+      <h3>Frontend Developer | XYZ Solutions</h3>
+      <p>2021 - 2023 | Built responsive websites and interactive UI components.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2 class="animate">Projects</h2>
+  <div class="projects-container">
+    <div class="project-card animate" contenteditable="true">
+      <h3>E-Commerce Website</h3>
+      <p>Responsive shopping site using JavaScript and API integration. <a href="#" target="_blank">Live</a> | <a href="#" target="_blank">Code</a></p>
+    </div>
+    <div class="project-card animate" contenteditable="true">
+      <h3>Task Manager App</h3>
+      <p>CRUD app with local storage and dynamic filtering. <a href="#" target="_blank">Live</a> | <a href="#" target="_blank">Code</a></p>
+    </div>
+    <div class="project-card animate" contenteditable="true">
+      <h3>Portfolio Website</h3>
+      <p>Modern personal portfolio built with responsive design. <a href="#" target="_blank">Live</a> | <a href="#" target="_blank">Code</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="glass animate" contenteditable="true">
+  <h2>Contact</h2>
+  <div class="contact-container">
+    <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+    <p>GitHub: <a href="https://github.com/yourname" target="_blank">github.com/yourname</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/yourname" target="_blank">linkedin.com/in/yourname</a></p>
+  </div>
+</section>
+
+<footer>
+  © 2026 <span contenteditable="true">Your Name</span> | Futuristic Full Stack Portfolio
+</footer>
+
+<script>
+// Dark Mode Toggle
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  if(document.body.classList.contains('dark')){
+    document.documentElement.style.setProperty('--bg', '#f0f0f0');
+    document.documentElement.style.setProperty('--text', '#0f111a');
+    document.documentElement.style.setProperty('--card', 'rgba(0,0,0,0.05)');
+  } else {
+    document.documentElement.style.setProperty('--bg', '#0f111a');
+    document.documentElement.style.setProperty('--text', '#f0f0f0');
+    document.documentElement.style.setProperty('--card', 'rgba(255,255,255,0.05)');
+  }
+}
+
+// Profile photo upload
+function changePhoto() { document.getElementById('photo-input').click(); }
+function updatePhoto(event) {
+  const reader = new FileReader();
+  reader.onload = function(){ document.getElementById('profile-photo').src = reader.result; }
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+// Resume upload
+function changeResume() { document.getElementById('resume-input').click(); }
+function updateResume(event) {
+  const file = event.target.files[0];
+  if(file) {
+    const url = URL.createObjectURL(file);
+    document.getElementById('resume-link').href = url;
+    document.getElementById('resume-link').download = file.name;
+  }
+}
+
+// Scroll-triggered animation
+function scrollAnimations() {
+  const elements = document.querySelectorAll('.animate');
+  const windowHeight = window.innerHeight;
+  elements.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if(top < windowHeight - 150) el.classList.add('active');
+    else el.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', scrollAnimations);
+window.addEventListener('load', scrollAnimations);
+</script>
+
+</body>
+</html>
